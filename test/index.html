@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern IT Webshop</title>
+    <style>
+        /* CSS Variables für einfaches Theming */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --text-color: #212529;
+            --card-background: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: #dee2e6;
+        }
+
+        /* Dark Mode Theme */
+        [data-theme="dark"] {
+            --primary-color: #4dabf7;
+            --secondary-color: #868e96;
+            --background-color: #121212;
+            --text-color: #e9ecef;
+            --card-background: #1e1e1e;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --border-color: #495057;
+        }
+
+        /* Globale Styles & Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        .main-header {
+            background-color: var(--card-background);
+            box-shadow: 0 2px 5px var(--shadow-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .theme-switcher {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary-color), #333);
+            color: #fff;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 60px 0;
+        }
+
+        /* Product Card */
+        .product-card {
+            background-color: var(--card-background);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        [data-theme="dark"] .btn:hover {
+             background-color: #63b3f8;
+        }
+        
+        /* Footer */
+        .main-footer {
+            background-color: var(--card-background);
+            padding: 40px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-top 0.3s;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: var(--secondary-color);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* In a real scenario, this would become a hamburger menu */
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container navbar">
+            <a href="#" class="logo">IT-Solutions</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Produkte</a></li>
+                    <li><a href="#">Lösungen</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Über Uns</a></li>
+                </ul>
+            </nav>
+            <div class="theme-switcher" id="theme-toggle">🌙</div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Modernste Technologie für Ihr Business</h1>
+            <p>Entdecken Sie unsere Auswahl an Hardware, Software und Cloud-Lösungen, die Ihr Unternehmen voranbringen.</p>
+        </section>
+
+        <section class="container">
+            <div class="product-grid">
+                <!-- Produkt 1 -->
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/400x250/007bff/ffffff?text=Server" alt="Produktbild" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Enterprise Server Pro</h3>
+                        <p class="product-description">Leistungsstarker und skalierbarer Rack-Server für anspruchsvolle Unternehmensanwendungen und Virtualisierung.</p>
+                        <div class="product-price">2.499,00 €</div>
+                        <a href="#" class="btn">In den Warenkorb</a>
+                    </div>
+                </div>
+
+                <!-- Produkt 2 -->
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/400x250/6c757d/ffffff?text=Software" alt="Produktbild" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Cloud-Backup Lösung</h3>
+                        <p class="product-description">Automatisierte und sichere Datensicherung in der Cloud. Schützen Sie Ihre kritischen Geschäftsdaten zuverlässig.</p>
+                        <div class="product-price">49,99 € / Monat</div>
+                        <a href="#" class="btn">Details anzeigen</a>
+                    </div>
+                </div>
+
+                <!-- Produkt 3 -->
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/400x250/28a745/ffffff?text=Security" alt="Produktbild" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Cybersecurity Suite</h3>
+                        <p class="product-description">Umfassender Schutz vor Malware, Phishing und anderen Cyber-Bedrohungen für alle Endgeräte in Ihrem Netzwerk.</p>
+                        <div class="product-price">299,00 € / Jahr</div>
+                        <a href="#" class="btn">In den Warenkorb</a>
+                    </div>
+                </div>
+
+                <!-- Produkt 4 -->
+                 <div class="product-card">
+                    <img src="https://via.placeholder.com/400x250/ffc107/000000?text=Laptop" alt="Produktbild" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Business Laptop X1</h3>
+                        <p class="product-description">Ein ultraleichtes und robustes Notebook mit langer Akkulaufzeit, perfekt für den mobilen Arbeitsalltag.</p>
+                        <div class="product-price">1.350,00 €</div>
+                        <a href="#" class="btn">In den Warenkorb</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <p>&copy; 2025 IT-Solutions GmbH. Alle Rechte vorbehalten.</p>
+            <ul class="footer-links">
+                <li><a href="#">Impressum</a></li>
+                <li><a href="#">Datenschutz</a></li>
+                <li><a href="#">AGB</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode / Light Mode Umschalter
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+
+        // Prüfen, ob ein Theme im Local Storage gespeichert ist
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'dark') {
+                themeToggle.textContent = '☀️';
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        });
+    </script>
+</body>
+</html>
