@@ -29,3 +29,13 @@ CREATE TABLE IF NOT EXISTS veranstaltungsart
     PRIMARY KEY (id),
     UNIQUE KEY (bezeichnung)
 );
+
+CREATE TABLE veranstaltung(
+    id INT AUTO_INCREMENT,
+    veranstaltungsart_id INT NOT NULL,
+    thema text NOT NULL,
+    zeitpunkt DATETIME NOT NULL,
+    bild VARCHAR(2048) NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(veranstaltungsart_id) REFERENCES veranstaltungsart(id)
+);
