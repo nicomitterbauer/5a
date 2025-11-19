@@ -39,7 +39,7 @@ if(isset($_POST['bt_create_veranstaltung'])){
     }
 
     if(count($errors) == 0){
-        $dba->createVeranstaltung($thema, $veranstaltungsartId, $zeitpunkt);
+        $dba->createVeranstaltung($veranstaltungsartId, $thema, $zeitpunkt, $uploadpath);
         header('Location: veranstaltungen.php');
         exit();
     }
@@ -59,7 +59,7 @@ if(isset($_POST['bt_create_veranstaltung'])){
     <?php include 'showerrors.inc.php'; ?>
 
     <h2>Neue Veranstaltung</h2>
-    <form action="Veranstaltung.php" method="POST"></form>
+    <form action="Veranstaltungen.php" method="POST" enctype="multipart/form-data">
         <label>Thema (TItel):</label><br>
         <input type="text" name="thema"><br>
 
@@ -83,5 +83,6 @@ if(isset($_POST['bt_create_veranstaltung'])){
         <input type="file" name="bild"><br>
 
         <button name="bt_create_veranstaltung">Veranstaltung erstellen</button>
+        </form>
 </body>
 </html>

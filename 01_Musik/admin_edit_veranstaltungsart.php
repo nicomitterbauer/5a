@@ -22,12 +22,16 @@ if($veranstaltungsart === false){
 }
 
 if(isset($_POST['bt_update_veranstaltungsart'])){
+    print_r($_FILES);
     $bezeichnungva = trim($_POST['bezeichnung']);
 
     if(empty($bezeichnungva)){
         $errors[] = 'Bezeichnung eingeben';
     }
-    if ($dba->getVeranstaltungsartByBezeichnung($bezeichnungva) !== false){
+    // hole di VA
+    $va = $dba->getVeranstaltungsartByBezeichnung($bezeichnungva);
+
+    if($va !== false && $va->id != $id){
         $errors[] = 'Bezeichnung bereits vorhanden';
     }
 

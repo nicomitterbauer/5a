@@ -89,6 +89,15 @@ class DbAccess {
             return $this->conn->lastInsertId();
     }
 
+    public function isLoggedIn(): bool
+        {
+            return isset($_SESSION['user_id']) && $_SESSION['user_id'] != 0;
+        }
+
+    public function isAdmin(): bool
+        {
+            return isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true;
+        }
 
     public function getKenntnissByBezeichnung(string $bezeichnung): Kenntniss|false
         {
@@ -214,6 +223,21 @@ class DbAccess {
     ');
     $ps->bindValue('id', $id);
     $ps->execute();
+    }
+
+    public function createVeranstaltung(int $veranstaltungsartId, string $thema, DateTime $zeitpunkt, string $bild) : int {
+        $ps = $this->conn->prepare('
+            INSERT INTO veranstaltung
+            (veranstaltungsart_id, thema, zeitpunkt, bild)
+            VALUES
+            (:veranstaltungsart_id, :thema, :zeitpunkt, :bild)
+        ');
+        $ps->bindValue('veranstaltungsart_id', $veranstaltungsartId);
+        $ps->bindValue('thema', $thema);
+        $ps->bindValue('zeitpunkt', $zeitpunkt->format('Y-m-d H:i:s'));
+        $ps->bindValue('bild', $bild);
+        $ps->execute();
+        return $this->conn->lastInsertId();
     }
 }
 ?>
